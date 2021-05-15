@@ -10,6 +10,7 @@ namespace IUT_Vache
     {
 
         private static readonly List<Piquet> liste_piquet = new List<Piquet>();
+        //private static readonly List<double> segments = new List<double>();
 
         private readonly double x;
         private readonly double y;
@@ -33,7 +34,6 @@ namespace IUT_Vache
         {
             return liste_piquet.Count;
         }
-
         /// <summary>
         /// Calcul de l'aire de la clôture en fonction des données rentrées
         /// </summary>
@@ -42,8 +42,6 @@ namespace IUT_Vache
         public static double GetAire()
         {
             double aire = 0.0;
-
-            //Calcul de la somme A en fonction du nombre de piquets
 
             for(int i = 0; i < (liste_piquet.Count)-1; i++)
             {
@@ -69,13 +67,42 @@ namespace IUT_Vache
                 {
                     aire += segment;
                 }
-
-
-
-            //Console.WriteLine("x" + i + " = " + aire + "-- Calcul effectué= " + coordX + " * " + coordYPlusUn + " - " + coordXPlusUn + " * " + coordY);
             }
 
-            return aire*0.5;
+            return Math.Abs(aire*0.5);
+        }
+
+        public static double GetCentreGraviteX()
+        {
+            double gravityX = 0.0;
+
+            for (int i = 0; i < (liste_piquet.Count) - 1; i++)
+            {
+                Piquet piquet = liste_piquet[i];
+                double coordX = piquet.x;
+                double coordY = piquet.y;
+                double coordXPlusUn = liste_piquet[i + 1].x;
+                double coordYPlusUn = liste_piquet[i + 1].y;
+
+                //Application de la formule (de la somme)
+                double somme = (coordX + coordXPlusUn) * 
+                    (coordX * coordYPlusUn) - (coordXPlusUn * coordY);
+
+                //Si on arrive au dernier segment (fusion avec le segment 0)
+                if (i == liste_piquet.Count - 2)
+                {
+                    double segmentNmoins1 = ((liste_piquet[i].x) + liste_piquet[i+1].y) * 
+                        (liste_piquet[i + 1].x * liste_piquet[0].y) - (liste_piquet[0].x * liste_piquet[i + 1].y);
+
+                    gravityX += somme + segmentNmoins1;
+                }
+                else
+                {
+                    gravityX += somme;
+                }
+            }
+
+            return (1/6*GetAire());
         }
     }
 }
