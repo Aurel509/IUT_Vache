@@ -4,10 +4,11 @@ namespace IUT_Vache
 {
     class Program
     {
-        /*
-         * Fonction permettant de vérifier si une valeur 
-         *
-        */
+        /// <summary>
+        /// Vérifie si l'entier donné est un entier
+        /// </summary>
+        /// <returns>Entier écrit par l'utilisateur dans la console</returns>
+
         public static int GetInteger()
         {
             int value = 0;
@@ -26,6 +27,10 @@ namespace IUT_Vache
             return value;
         }
 
+        /// <summary>
+        /// Vérifie si le nombre décimal donné est un nombre décimal
+        /// </summary>
+        /// <returns>Nombre décimal écrit par l'utilisateur dans la console</returns>
         public static double GetDouble()
         {
             double value = 0.0;
@@ -44,7 +49,9 @@ namespace IUT_Vache
             return value;
         }
 
-
+        /// <summary>
+        /// Fonction principale du programme
+        /// </summary>
         static void Main(string[] args)
         {
             //Déclaration de variables

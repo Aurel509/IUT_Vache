@@ -14,7 +14,11 @@ namespace IUT_Vache
         private readonly double x;
         private readonly double y;
 
-
+        /// <summary>
+        /// Objet Piquet, crée un piquet pour la clôture
+        /// </summary>
+        /// <param name="x">Coordonnée x du piquet</param>
+        /// <param name="y">Coordonnée y du piquet</param>
         public Piquet(double x, double y)
         {
             this.x = x;
@@ -29,6 +33,12 @@ namespace IUT_Vache
         {
             return liste_piquet.Count;
         }
+
+        /// <summary>
+        /// Calcul de l'aire de la clôture en fonction des données rentrées
+        /// </summary>
+        /// <returns>L'aire de la clôture</returns>
+
         public static double GetAire()
         {
             double aire = 0.0;
@@ -43,17 +53,16 @@ namespace IUT_Vache
                 double coordXPlusUn = liste_piquet[i+1].x;
                 double coordYPlusUn = liste_piquet[i+1].y;
 
-
+                //Calcul du segment
                 double segment = 
                     (coordX * coordYPlusUn) - (coordXPlusUn * coordY);
 
-                //Si on arrive au dernier segment
+                //Si on arrive au dernier segment (fusion avec le segment 0)
                 if (i == liste_piquet.Count - 2)
                 {
                     double segmentNmoins1 = 
                         (liste_piquet[i+1].x * liste_piquet[0].y) - (liste_piquet[0].x * liste_piquet[i+1].y);
 
-                    //Console.WriteLine("SEG0 = " + segmentNmoins1);
                     aire += segment + segmentNmoins1;
                 }
                 else
