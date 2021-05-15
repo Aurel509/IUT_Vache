@@ -43,23 +43,23 @@ namespace IUT_Vache
         {
             double aire = 0.0;
 
-            for(int i = 0; i < (liste_piquet.Count)-1; i++)
+            for (int i = 0; i < (liste_piquet.Count) - 1; i++)
             {
                 Piquet piquet = liste_piquet[i];
                 double coordX = piquet.x;
                 double coordY = piquet.y;
-                double coordXPlusUn = liste_piquet[i+1].x;
-                double coordYPlusUn = liste_piquet[i+1].y;
+                double coordXPlusUn = liste_piquet[i + 1].x;
+                double coordYPlusUn = liste_piquet[i + 1].y;
 
                 //Calcul du segment
-                double segment = 
+                double segment =
                     (coordX * coordYPlusUn) - (coordXPlusUn * coordY);
 
                 //Si on arrive au dernier segment (fusion avec le segment 0)
                 if (i == liste_piquet.Count - 2)
                 {
-                    double segmentNmoins1 = 
-                        (liste_piquet[i+1].x * liste_piquet[0].y) - (liste_piquet[0].x * liste_piquet[i+1].y);
+                    double segmentNmoins1 =
+                        (liste_piquet[i + 1].x * liste_piquet[0].y) - (liste_piquet[0].x * liste_piquet[i + 1].y);
 
                     aire += segment + segmentNmoins1;
                 }
@@ -69,7 +69,7 @@ namespace IUT_Vache
                 }
             }
 
-            return Math.Abs(aire*0.5);
+            return Math.Abs(aire * 0.5);
         }
 
         public static double GetCentreGraviteX()
@@ -85,14 +85,15 @@ namespace IUT_Vache
                 double coordYPlusUn = liste_piquet[i + 1].y;
 
                 //Application de la formule (de la somme)
-                double somme = (coordX + coordXPlusUn) * 
-                    (coordX * coordYPlusUn) - (coordXPlusUn * coordY);
+                double somme = (coordX + coordXPlusUn) *
+                    (coordX * coordYPlusUn - coordXPlusUn * coordY);
 
                 //Si on arrive au dernier segment (fusion avec le segment 0)
                 if (i == liste_piquet.Count - 2)
                 {
-                    double segmentNmoins1 = ((liste_piquet[i].x) + liste_piquet[i+1].y) * 
-                        (liste_piquet[i + 1].x * liste_piquet[0].y) - (liste_piquet[0].x * liste_piquet[i + 1].y);
+                    Console.WriteLine("i=" + i);
+                    double segmentNmoins1 = (liste_piquet[i + 1].x + liste_piquet[0].x) *
+                        (liste_piquet[i + 1].x * liste_piquet[0].y - liste_piquet[0].x * liste_piquet[i + 1].y);
 
                     gravityX += somme + segmentNmoins1;
                 }
@@ -100,9 +101,10 @@ namespace IUT_Vache
                 {
                     gravityX += somme;
                 }
+                Console.WriteLine("x" + i + " = " + gravityX + "-- Calcul effectué= " + coordX + " * " + coordYPlusUn + " - " + coordXPlusUn + " * " + coordY);
             }
 
-            return (1/6*GetAire());
+            return (1 / (6 * GetAire())) * gravityX;
         }
     }
 }
