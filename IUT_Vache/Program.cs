@@ -64,6 +64,12 @@ namespace IUT_Vache
             {
                 Console.Write("Donnez le nombre de piquets : ");
                 nombrePiquet = GetInteger();
+
+                if (nombrePiquet < 3)
+                {
+                    Console.WriteLine("Merci de donner 3 piquets au minimum.");
+                    nombrePiquet = 0;
+                }
             }
 
             //Saisie de la coordonnée x et y de chaque piquet 
