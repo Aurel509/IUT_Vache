@@ -18,9 +18,9 @@ namespace IUT_Vache
             {
                 value = int.Parse(stringValue);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Erreur :  L'entier donné est incorrect. Veuillez réessayer.");
             }
 
             return value;
@@ -36,9 +36,9 @@ namespace IUT_Vache
             {
                 value = double.Parse(stringValue);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Erreur :  Le nombre donné n'est pas dans le bon format. Utilisez ',' et non '.' pour des nombres décimaux.");
             }
 
             return value;
@@ -53,7 +53,7 @@ namespace IUT_Vache
             double coordY = 0.0;
 
             //
-            while (nombrePiquet == 0)
+            while (nombrePiquet < 0 || nombrePiquet == 0 || nombrePiquet >= 50)
             {
                 Console.Write("Donnez le nombre de piquets : ");
                 nombrePiquet = GetInteger();
@@ -80,6 +80,7 @@ namespace IUT_Vache
                 coordX = 0.0;
                 coordY = 0.0;
             }
+            Console.WriteLine("Aire : " +  Piquet.GetAire());
         }
 
     }
