@@ -59,16 +59,20 @@ namespace IUT_Vache
             double coordX = 0.0;
             double coordY = 0.0;
 
-            //
-            while (nombrePiquet < 0 || nombrePiquet == 0 || nombrePiquet >= 50)
+            //Si le nombre de piquets est incorrect. On demande de resaisir 
+            while (nombrePiquet < 3 || nombrePiquet >= 50)
             {
                 Console.Write("Donnez le nombre de piquets : ");
                 nombrePiquet = GetInteger();
 
+
                 if (nombrePiquet < 3)
                 {
                     Console.WriteLine("Merci de donner 3 piquets au minimum.");
-                    nombrePiquet = 0;
+                }
+                else if (nombrePiquet >= 50)
+                {
+                    Console.WriteLine("Vous ne possédez pas autant de piquets.");
                 }
             }
 
@@ -95,6 +99,14 @@ namespace IUT_Vache
             }
             Console.WriteLine("Aire : " +  Piquet.GetAire());
             Console.WriteLine("Centre de gravité : (" + Piquet.GetCentreGravite(true) + " , " + Piquet.GetCentreGravite(false) + ")");
+
+            if(Piquet.AppartenancePointPolygone(Piquet.GetList(), Piquet.GetCentreGravite(true), Piquet.GetCentreGravite(false)))
+            {
+                Console.WriteLine("Votre vache est dans le pré.");
+            } else
+            {
+                Console.WriteLine("Attention, la vache est hors du pré.");
+            }
         }
 
     }
