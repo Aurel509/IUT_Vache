@@ -69,7 +69,7 @@ namespace IUT_Vache
                 }
             }
 
-            return Math.Abs(aire * 0.5);
+            return Math.Round(Math.Abs(aire * 0.5), 3, MidpointRounding.ToEven);
         }
 
         public static double GetCentreGraviteX()
@@ -102,7 +102,7 @@ namespace IUT_Vache
                 }
             }
 
-            return (1 / (6 * GetAire())) * gravityX;
+            return Math.Round((1 / (6 * GetAire())) * gravityX, 3, MidpointRounding.ToEven);
         }
 
         public static double GetCentreGraviteY()
@@ -135,9 +135,61 @@ namespace IUT_Vache
                 }
             }
 
-            return (1 / (6 * GetAire())) * gravityY;
+            return Math.Round((1 / (6 * GetAire())) * gravityY, 3, MidpointRounding.ToEven);
         }
+        /// <summary>
+        /// Calcul de l'ordonnée ou l'abscisse du centre de gravité en fonction du booléen "axe"
+        /// </summary>
+        /// <returns>L'ordonnée ou l'abscisse du centre de gravité.</returns>
+        /// <param name="axe">Boolean pour l'axe choisi TRUE = abscisse | FALSE = ordonnée </param>
+        public static double GetCentreGravite(bool axe)
+        {
+            double gravity = 0.0;
 
+            for (int i = 0; i < (liste_piquet.Count) - 1; i++)
+            {
+                Piquet piquet = liste_piquet[i];
+                double coordX = piquet.x;
+                double coordY = piquet.y;
+                double coordXPlusUn = liste_piquet[i + 1].x;
+                double coordYPlusUn = liste_piquet[i + 1].y;
+                double somme;
+
+                //Application de la formule (de la somme)
+                if (axe)
+                {
+                    somme = (coordX + coordXPlusUn);
+                } else
+                {
+                    somme = (coordY + coordYPlusUn);
+                }
+
+                somme *= (coordX * coordYPlusUn - coordXPlusUn * coordY);
+
+                //Si on arrive au dernier segment (fusion avec le segment 0)
+                if (i == liste_piquet.Count - 2)
+                {
+                    double segmentNmoins1;
+                    if (axe)
+                    {
+                        segmentNmoins1 = (liste_piquet[i + 1].x + liste_piquet[0].x);
+                    } else
+                    {
+                        segmentNmoins1 = (liste_piquet[i + 1].y + liste_piquet[0].y);
+                    }
+                    segmentNmoins1 *= 
+                        (liste_piquet[i + 1].x * liste_piquet[0].y - liste_piquet[0].x * liste_piquet[i + 1].y);
+
+                    gravity += somme + segmentNmoins1;
+                }
+                else
+                {
+                    gravity += somme;
+                }
+            }
+
+            return Math.Round((1 / (6 * GetAire())) * gravity, 3, MidpointRounding.ToEven);
+        }
 
     }
 }

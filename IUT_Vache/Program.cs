@@ -94,7 +94,7 @@ namespace IUT_Vache
                 coordY = 0.0;
             }
             Console.WriteLine("Aire : " +  Piquet.GetAire());
-            Console.WriteLine("Centre de gravité : (" + Piquet.GetCentreGraviteX() + " , " + Piquet.GetCentreGraviteY() + ")");
+            Console.WriteLine("Centre de gravité : (" + Piquet.GetCentreGravite(true) + " , " + Piquet.GetCentreGravite(false) + ")");
         }
 
     }
