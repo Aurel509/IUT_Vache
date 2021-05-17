@@ -80,7 +80,7 @@ namespace IUT_Vache
 
             for(int i = 1; i<=nombrePiquet; i++)
             {
-                Console.Write("Saisir le piquet n° " + i);
+                Console.Write("\nSaisir le piquet n° " + i);
 
                 while(coordX == 0.0)
                 {
@@ -97,7 +97,7 @@ namespace IUT_Vache
                 coordX = 0.0;
                 coordY = 0.0;
             }
-            Console.WriteLine("Aire : " +  Piquet.GetAire());
+            Console.WriteLine("\nAire : " +  Piquet.GetAire());
             Console.WriteLine("Centre de gravité : (" + Piquet.GetCentreGravite(true) + " , " + Piquet.GetCentreGravite(false) + ")");
 
             if(Piquet.AppartenancePointPolygone(Piquet.GetList(), Piquet.GetCentreGravite(true), Piquet.GetCentreGravite(false)))
